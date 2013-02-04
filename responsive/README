@@ -1,1 +1,11 @@
-I tried to do this with the iPhone 4, so I set the max-device-width to 960px. 
+I tried to do this with the iPhone 4, so I set the max-device-width to 960px.
+This will cause all devices with device-width less than 960px to have only
+"Dice" shown. So the iPhone 4 will have only "Dice" shown. The wording of the
+lab slightly confused me because it says "when loaded on a device of your
+choosing", so I'm assuming it is supposed to work on the device of our
+choosing and any device smaller than our chosen device. If this is not the
+case (that is, if smaller devices should also display "No dice", then the 
+index.html file would have to be changed from max-device-width: to
+device-width:. I didn't make this change because the way the lab was 
+described in class made it sound like it was suppose to behave like the 
+example shown in class. 
