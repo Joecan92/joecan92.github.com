@@ -1,12 +1,4 @@
-.title{
-font-size: 96px;
-text-decoration: underline;
-text-align: center;
-font-weight: bold;
-color: navy;
-}
-
-.title2{
+#bio_title{
 font-size: 32px;
 text-decoration: underline;
 text-align: center;
@@ -19,8 +11,8 @@ color: black;
 text-align: center;
 }
 
-p 
-{text-indent:50px;
+p{
+text-indent:50px;
 }
 
 #name{
@@ -34,5 +26,9 @@ text-align: center;
 display: block;
 margin-left: auto;
 margin-right: auto;
-border: black;
+}
+
+.link{
+font-size: 24px;
+font-family: Helvetica;
 }

@@ -1,32 +1,15 @@
 #title{
 text-align: center;
 font-size: 48px;
-color: olive;
+font-weight: bold;
 }
 
 #name{
 font-weight: bold;
-font-size: 48px;
+font-size: 32px;
 font-family: cursive;
 text-align: center;
-}
-
-#mypic{
-display: block;
-margin-left: auto;
-margin-right: auto;
-border: black;
-}
-
-.center{
-text-align: center;
-}
-
-#name{
-text-align: center;
-font-size: 32px;
 font-family: Times;
-
 }
 
 #email{
@@ -34,24 +17,11 @@ text-align: center;
 font-size: 24px;
 }
 
-.title2{
-font-size: 48px;
-text-decoration: underline;
-text-align: center;
-font-weight: bold;
-color: black;
-}
-
-.indent 
-{
-text-indent:50px;
-}
-
 p{
 font-family: Times;
 }
 
-.title3{
+.title2{
 font-size: 24px;
 text-align: left;
 font-weight: bold;
@@ -67,8 +37,4 @@ font-weight: bold;
 font-size: 14px;
 text-align: left;
 font-style: italic;
-}
-
-.job{
-font-weight: bold;
 }
