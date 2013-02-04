@@ -14,23 +14,6 @@ font-weight: bold;
 color: black;
 }
 
-#lady{
-display: block; 
-margin-left: auto; 
-margin-right: auto;
-height: 540px;
-width: 364px;
-border-style: solid;
-border-color: blue;
-}
-
-#tiger{
-display: block;
-margin-left: auto;
-margin-right: auto;
-border-style: solid;
-border-color: red;
-}
 
 .center{
 text-align: center;
