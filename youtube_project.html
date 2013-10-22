@@ -3,9 +3,48 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>YouTube Comment Upload</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+    $(document).ready(function () {
+        $("button").click(function () {
+            var user_comment = $("#user_comment").val();
+            var video_id = $("#video_id").val();
+            var xmlData = '<?xml version="1.0" encoding="UTF-8"?> <entry xmlns="http://www.w3.org/2005/Atom" xmlns:yt="http://gdata.youtube.com/schemas/2007"> <content>' + user_comment + '</content> <!--link rel="http://gdata.youtube.com/schemas/2007#in-reply-to" href="http://gdata.youtube.com/feeds/videos/' + video_id + '/comments"/--> </entry>';
+            var ytKey = $("#ytkey").val();
+            var autho = $("#autho").val();
+            $.ajax({
+                url: 'http://gdata.youtube.com/feeds/api/videos/' + video_id + '/comments',
+                processData: false,
+                data: xmlData,
+                type: "POST",
+                contentType:"application/atom+xml",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('X-GData-Key', 'key=' + ytKey);
+                    xhr.setRequestHeader('GData-Version', 2);
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + autho);
+                },
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (response) {
+                console.log(response);
+                }
+            }),
+            function (data, status) {}
+        });
+    });
+
+</script>
 </head>
+
 <body>
-    Yay!
+
+Your Comment : <input type="text" id="user_comment" placeholder="Your Comment"/><br />
+Video ID: <input type="text" id="video_id" placeholder="Video ID" value="dE87HHxnz4Q"/> <br />
+Your YouTube Key for now: <input type="text" id="ytkey" value="AI39si51Ixq3MSnBljLU6oLe-O9jlTC3zNHkRrbybRyJqAmcbD5Q7eK7yxEDpW7Em4F2IMY_JFPQs3nE2PJ0tpBhGBJ8cGmPxg" /> <br />
+Your YouTube Authentication for now: <input type="text" id="autho" value="ya29.AHES6ZSg3i87GyndK157eAYiith2BvOAF8rvmA32yMCq_DI" /> <br />
+<button>Post your comment!</button>
 </body>
 </html>
