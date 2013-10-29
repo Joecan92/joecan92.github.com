@@ -4,12 +4,13 @@
 <head>
     <meta charset="utf-8" />
     <title>YouTube Comment Upload</title>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="testing.js" type="text/javascript"></script>
 <script>
+    var currentComments, xmlDoc, entries;
     $(document).ready(function () {
         //Post Comment
-        $("button").click(function () {
+        $("#post").click(function () {
             var user_comment = $("#user_comment").val();
             var video_id = $("#video_id").val();
             var xmlData = '<?xml version="1.0" encoding="UTF-8"?> <entry xmlns="http://www.w3.org/2005/Atom" xmlns:yt="http://gdata.youtube.com/schemas/2007"> <content>' + user_comment + '</content> <!--link rel="http://gdata.youtube.com/schemas/2007#in-reply-to" href="http://gdata.youtube.com/feeds/videos/' + video_id + '/comments"/--> </entry>';
@@ -36,10 +37,39 @@
             function (data, status) {}
         });
         //Retreive Comments
-        $("button").click(function () {
-            var currentComments = $("#user_comment").val();
+        $("#retrieve").click(function () {
+
             var video_id = $("#video_id").val();
-            var xmlData = '<?xml version="1.0" encoding="UTF-8"?> <entry xmlns="http://www.w3.org/2005/Atom" xmlns:yt="http://gdata.youtube.com/schemas/2007"> <content>' + user_comment + '</content> <!--link rel="http://gdata.youtube.com/schemas/2007#in-reply-to" href="http://gdata.youtube.com/feeds/videos/' + video_id + '/comments"/--> </entry>';
+            var ytKey = $("#ytkey").val();
+            var autho = $("#autho").val();
+            var maxResults = 10;
+            $.ajax({
+                url: 'http://gdata.youtube.com/feeds/api/videos/' + video_id + '/comments',
+                processData: false,
+                type: "GET",
+                cache: "false",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('X-GData-Key', 'key=' + ytKey);
+                    xhr.setRequestHeader('GData-Version', 2);
+                },
+                success: function (response) {
+                    displayComments(response);
+                    currentComments = response;
+                },
+                error: function (response) {
+                    console.log("FAILURE");
+                }
+            }),
+            function (data, status) { }
+        });
+        //Reply to comments
+        $("#reply").click(function () {
+            var user_comment = $("#user_comment").val();
+            var video_id = $("#video_id").val();
+            var commentID = getCommentID($("#commentNum").val());
+            console.log($("#video_id").val());
+            console.log(commentID);
+            var xmlData = '<?xml version="1.0" encoding="UTF-8"?> <entry xmlns="http://www.w3.org/2005/Atom" xmlns:yt="http://gdata.youtube.com/schemas/2007"> <link rel="http://gdata.youtube.com/schemas/2007#in-reply-to" type="application/atom+xml" href="https://gdata.youtube.com/feeds/api/videos/' + video_id + '/comments/' + commentID + '"/><content>' + user_comment + '</content></entry>';
             var ytKey = $("#ytkey").val();
             var autho = $("#autho").val();
             $.ajax({
@@ -67,14 +97,22 @@
 
 
 </script>
+
+
 </head>
 
 <body>
 
+    <div>Testing1<div>Testing2<div>Testing3</div></div></div>
+
 Your Comment : <input type="text" id="user_comment" placeholder="Your Comment"/><br />
 Video ID: <input type="text" id="video_id" placeholder="Video ID" value="dE87HHxnz4Q"/> <br />
 Your YouTube Key for now: <input type="text" id="ytkey" value="AI39si51Ixq3MSnBljLU6oLe-O9jlTC3zNHkRrbybRyJqAmcbD5Q7eK7yxEDpW7Em4F2IMY_JFPQs3nE2PJ0tpBhGBJ8cGmPxg" /> <br />
-Your YouTube Authentication for now: <input type="text" id="autho" value="ya29.AHES6ZSg3i87GyndK157eAYiith2BvOAF8rvmA32yMCq_DI" /> <br />
-<button>Post your comment!</button>
+Your YouTube Authentication for now: <input type="text" id="autho" value="ya29.AHES6ZTXDW3yF1F_Ht13uL7niQA49pD6a3NEFWsos0wDi9qx" /> <br />
+Comment Number to reply to: <input type="text" id="commentNum" value="0" /> <br />
+<button id="post">Post your comment!</button> <br />
+<button id="retrieve">Retrieve Comments!</button> <br />
+<button id="reply">Reply to comment!</button> <br />
+<div id="comments"></div>
 </body>
 </html>
